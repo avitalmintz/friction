@@ -108,12 +108,3 @@ devices.
   `manifest.json` to run the scroll pause on other sites. The like
   revocation and comment justification are Instagram-specific as
   written.
-
-## Built with
-
-Vibe-coded with Claude. See the manifesto for the argument.
-
-## License
-
-MIT. Fork it. Rewrite the prompts. Replace the modals. Make your own
-refusals.
