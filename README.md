@@ -2,9 +2,7 @@
 
 
 > **This is a class project.** Built for *Conscious Media* (Week 4:
-> Social Media Subversion). It is real code that really works, but it
-> is not polished production software — expect rough edges. The point
-> is the intervention, not the product.
+> Social Media Subversion). 
 
 
 ## What it does
