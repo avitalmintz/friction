@@ -1,22 +1,19 @@
 # Friction
 
-> A tiny Chrome extension that refuses three things Instagram wants —
-> attention, approval, and voice — by inserting friction into each one.
 
 > **This is a class project.** Built for *Conscious Media* (Week 4:
 > Social Media Subversion). It is real code that really works, but it
 > is not polished production software — expect rough edges. The point
 > is the intervention, not the product.
 
-Read the [**manifesto**](MANIFESTO.md) first.
 
 ## What it does
 
 Three stacked interventions, all running only on `instagram.com`:
 
-1. **Scroll pause.** Every 30 seconds of active scrolling, the screen
+1. **Scroll pause.** Every 20 seconds of active scrolling, the screen
    fades to a dark overlay with a single rotating prompt. You cannot
-   dismiss it for 4 seconds.
+   dismiss it for 2 seconds.
 2. **Like revocation.** When you tap a heart, the extension silently
    un-taps it 2 seconds later. Your felt engagement stays; your
    engagement *signal* goes to zero. If you try to re-like the same
