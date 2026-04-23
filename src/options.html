@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Friction — settings</title>
+    <style>
+      :root {
+        --ink: #1d1a3b;
+        --cream: #faf6ee;
+        --coral: #e05a3e;
+        --muted: #5c5668;
+        --hair: #eadfce;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        padding: 24px;
+        width: 440px;
+      }
+      h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 28px;
+        margin: 0 0 4px;
+      }
+      .tag {
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 18px 0 6px;
+      }
+      input[type="number"], input[type="password"], input[type="text"], textarea, select {
+        width: 100%;
+        padding: 10px 12px;
+        background: #fff;
+        border: 1px solid var(--hair);
+        border-radius: 8px;
+        font: inherit;
+        font-size: 14px;
+        color: var(--ink);
+        resize: vertical;
+      }
+      textarea { min-height: 140px; line-height: 1.5; }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .row input[type="checkbox"] { accent-color: var(--coral); width: 16px; height: 16px; }
+      button {
+        margin-top: 20px;
+        background: var(--coral);
+        color: #fff;
+        border: none;
+        padding: 10px 18px;
+        font: inherit;
+        font-size: 13px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .saved {
+        display: inline-block;
+        margin-left: 12px;
+        color: var(--coral);
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.24s ease;
+      }
+      .saved.visible { opacity: 1; }
+      .hint { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+      h2 { font-family: "Playfair Display", Georgia, serif; font-size: 20px; margin: 0 0 4px; }
+      hr { border: none; border-top: 1px solid var(--hair); margin: 32px 0 20px; }
+    </style>
+  </head>
+  <body>
+    <h1>Friction</h1>
+    <div class="tag">a refusal of frictionless engagement</div>
+
+    <div class="row">
+      <input type="checkbox" id="enabled" />
+      <label for="enabled" style="margin:0;">Scroll pause enabled</label>
+    </div>
+
+    <label for="scrollWindow">Seconds of scrolling before pause</label>
+    <input type="number" id="scrollWindow" min="5" max="600" step="1" />
+    <div class="hint">Default: 30. Lower is more disruptive.</div>
+
+    <label for="pauseSeconds">Pause length (seconds)</label>
+    <input type="number" id="pauseSeconds" min="1" max="30" step="1" />
+    <div class="hint">Default: 4.</div>
+
+    <label for="prompts">Prompts (one per line)</label>
+    <textarea id="prompts" spellcheck="false"></textarea>
+
+    <hr />
+
+    <div class="row">
+      <input type="checkbox" id="revokeLikes" />
+      <label for="revokeLikes" style="margin:0;">Silently revoke every like</label>
+    </div>
+    <div class="hint">After you tap a heart, the extension un-likes it a few seconds later. Your engagement signal never registers. If you try to re-like the same post, a modal asks you to justify it.</div>
+
+    <label for="revokeDelay">Revoke delay (seconds)</label>
+    <input type="number" id="revokeDelay" min="1" max="15" step="1" />
+    <div class="hint">Default: 2.</div>
+
+    <hr />
+
+    <div class="row">
+      <input type="checkbox" id="justifyComments" />
+      <label for="justifyComments" style="margin:0;">Require a reason before every comment</label>
+    </div>
+    <div class="hint">Before your comment sends, a modal asks "why are you commenting this?" Your comment is not modified; your reason is saved to the diary below. Cancel leaves the comment in the box unsent.</div>
+
+    <hr />
+
+    <h2>AI scoring (optional)</h2>
+    <div class="hint">If you paste an Anthropic API key, the justification modals get a <strong>grade this reason</strong> button. Claude reads your reason and grades it 1–10 on depth, honesty, and whether it sounds like real care. Without a key, this is skipped and you can just confirm. Stored in local storage only; never synced.</div>
+
+    <label for="anthropicKey">Anthropic API key</label>
+    <input type="password" id="anthropicKey" placeholder="sk-ant-…" autocomplete="off" spellcheck="false" />
+    <div class="hint">Get one at <code>console.anthropic.com/settings/keys</code>. Leave blank to disable scoring.</div>
+
+    <label for="anthropicModel">Model</label>
+    <select id="anthropicModel">
+      <option value="claude-haiku-4-5">claude-haiku-4-5 (cheapest, fastest)</option>
+      <option value="claude-sonnet-4-6">claude-sonnet-4-6 (smarter, harder grader)</option>
+      <option value="claude-opus-4-7">claude-opus-4-7 (most expensive)</option>
+    </select>
+    <div class="hint">Haiku is plenty for this task. Sonnet judges harder if you want that.</div>
+
+    <button id="save">Save</button>
+    <span class="saved" id="saved">saved</span>
+
+    <hr />
+
+    <h2>Diary</h2>
+    <div class="hint" style="margin-bottom:12px;">Every justified re-like and every justified comment is logged here with your reason and, if graded, the score. Local only. Nothing leaves your machine.</div>
+    <div id="diary-list" style="max-height:380px;overflow:auto;border:1px solid var(--hair);border-radius:10px;background:#fff;"></div>
+    <button id="clearDiary" style="background:transparent;color:var(--muted);border:1px solid var(--hair);margin-top:12px;padding:8px 14px;font-size:11px;">Clear diary</button>
+
+    <script src="options.js"></script>
+  </body>
+</html>
